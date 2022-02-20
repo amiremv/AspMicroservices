@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using Basket.Api.Entities;
+﻿using Basket.Api.Entities;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 

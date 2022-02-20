@@ -1,7 +1,6 @@
 ﻿using Basket.Api.Entities;
 using Basket.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Distributed;
 
 namespace Basket.Api.Controllers;
 

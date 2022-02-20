@@ -8,17 +8,14 @@ public class CatalogContextSeed
     public static void SeedData(IMongoCollection<Product> productCollection)
     {
         var existProduct = productCollection.Find(p => true).Any();
-        if (!existProduct)
-        {
-            productCollection.InsertManyAsync(GetProductSeedData());
-        }
+        if (!existProduct) productCollection.InsertManyAsync(GetProductSeedData());
     }
 
     private static IEnumerable<Product> GetProductSeedData()
     {
-        return new List<Product>()
+        return new List<Product>
         {
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47f5",
                 Name = "IPhone X",
@@ -30,7 +27,7 @@ public class CatalogContextSeed
                 Price = 950.00M,
                 Category = "Smart Phone"
             },
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47f6",
                 Name = "Samsung 10",
@@ -42,7 +39,7 @@ public class CatalogContextSeed
                 Price = 840.00M,
                 Category = "Smart Phone"
             },
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47f7",
                 Name = "Huawei Plus",
@@ -54,7 +51,7 @@ public class CatalogContextSeed
                 Price = 650.00M,
                 Category = "White Appliances"
             },
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47f8",
                 Name = "Xiaomi Mi 9",
@@ -66,7 +63,7 @@ public class CatalogContextSeed
                 Price = 470.00M,
                 Category = "White Appliances"
             },
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47f9",
                 Name = "HTC U11+ Plus",
@@ -78,7 +75,7 @@ public class CatalogContextSeed
                 Price = 380.00M,
                 Category = "Smart Phone"
             },
-            new Product()
+            new()
             {
                 Id = "602d2149e773f2a3990b47fa",
                 Name = "LG G7 ThinQ",

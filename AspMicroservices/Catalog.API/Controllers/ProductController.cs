@@ -10,8 +10,8 @@ namespace Catalog.API.Controllers;
 [Route("api/v1/[controller]")]
 public class ProductController : ControllerBase
 {
-    private readonly IProductRepository _productRepository;
     private readonly ILogger<ProductController> _logger;
+    private readonly IProductRepository _productRepository;
 
     public ProductController(IProductRepository repository, ILogger<ProductController> logger)
     {

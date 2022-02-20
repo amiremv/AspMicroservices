@@ -18,11 +18,11 @@ public class DiscountRepository : IDiscountRepository
         await using var connection =
             new NpgsqlConnection(_configurations.GetValue<string>("DatabaseSettings:DatabaseConnection"));
         var coupon = await connection.QueryFirstOrDefaultAsync<Coupon>(
-            sql: "SELECT * FROM Coupon WHERE Coupon.ProductName = @productName", new
+            "SELECT * FROM Coupon WHERE Coupon.ProductName = @productName", new
             {
                 ProductName = productName
             });
-        return coupon ?? new Coupon() {ProductName = "No discount", Description = "No discount", Amount = 0};
+        return coupon ?? new Coupon {ProductName = "No discount", Description = "No discount", Amount = 0};
     }
 
     public async Task<bool> Create(Coupon coupon)
@@ -45,8 +45,10 @@ public class DiscountRepository : IDiscountRepository
                 "UPDATE Coupon SET ProductName=@ProductName,Description=@Description,Amount=@Amount WHERE Id = @Id)",
                 new
                 {
-                    ProductName = coupon.ProductName, Description = coupon.Description, Amount = coupon.Amount,
-                    Id = coupon.Id
+                    coupon.ProductName,
+                    coupon.Description,
+                    coupon.Amount,
+                    coupon.Id
                 });
         return affected != 0;
     }

@@ -25,13 +25,13 @@ public class ProductRepository : IProductRepository
 
     public async Task<IEnumerable<Product>> GetProductByName(string name)
     {
-        FilterDefinition<Product> filter = Builders<Product>.Filter.ElemMatch(p => p.Name, name);
+        var filter = Builders<Product>.Filter.ElemMatch(p => p.Name, name);
         return await _context.Products.Find(filter).ToListAsync();
     }
 
     public async Task<IEnumerable<Product>> GetProductByCategory(string category)
     {
-        FilterDefinition<Product> filter = Builders<Product>.Filter.ElemMatch(p => p.Category, category);
+        var filter = Builders<Product>.Filter.ElemMatch(p => p.Category, category);
         return await _context.Products.Find(filter).ToListAsync();
     }
 
@@ -44,7 +44,7 @@ public class ProductRepository : IProductRepository
     public async Task<bool> Update(Product product)
     {
         var updatedProduct =
-            await _context.Products.ReplaceOneAsync(filter: g => g.Id == product.Id, replacement: product);
+            await _context.Products.ReplaceOneAsync(g => g.Id == product.Id, product);
         return updatedProduct.IsAcknowledged && updatedProduct.ModifiedCount > 0;
     }
 
