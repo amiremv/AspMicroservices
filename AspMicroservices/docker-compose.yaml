@@ -9,17 +9,7 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
-  portainer:
-    container_name: portainer
-    image: portainer/portainer-ce
-    restart: always
-    ports:
-      - "8080:8000"
-      - "9000:9000"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-
+  
   basketdb:
     container_name: basketdb
     image: redis:alpine
@@ -27,6 +17,31 @@ services:
     ports:
       - "6379:6379"
 
+  discountdb:
+    container_name: discountdb
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin1234
+      - POSTGRES_DB=Discountdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
+    restart: always
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/root/.pgadmin
+  
   catalog.api:
     container_name: catalog.api
     image: ${DOCKER_REGISTRY-}catalogapi
@@ -55,7 +70,20 @@ services:
       - basketdb
     ports:
       - "8001:80"
-
+  
+  
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce
+    restart: always
+    ports:
+      - "8080:8000"
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
 volumes:
   mongo_data:
   portainer_data:
+  postgres_data:
+  pgadmin_data:
