@@ -1,8 +1,8 @@
 ﻿using Dapper;
-using Discount.API.Entities;
+using Discount.Grpc.Entities;
 using Npgsql;
 
-namespace Discount.API.Repositories;
+namespace Discount.Grpc.Repositories;
 
 public class DiscountRepository : IDiscountRepository
 {
@@ -13,14 +13,14 @@ public class DiscountRepository : IDiscountRepository
         _configurations = configurations;
     }
 
-    public async Task<Coupon> Get(string product_name)
+    public async Task<Coupon> Get(string productName)
     {
         await using var connection =
             new NpgsqlConnection(_configurations.GetValue<string>("DatabaseSettings:ConnectionString"));
         var coupon = await connection.QueryFirstOrDefaultAsync<Coupon>(
-            "SELECT * FROM Coupon WHERE Coupon.ProductName = @product_name", new
+            "SELECT * FROM Coupon WHERE Coupon.ProductName = @ProductName", new
             {
-                ProductName = product_name
+                ProductName = productName
             });
         return coupon ?? new Coupon {ProductName = "No discount", Description = "No discount", Amount = 0};
     }
@@ -53,7 +53,7 @@ public class DiscountRepository : IDiscountRepository
         return affected != 0;
     }
 
-    public async Task<bool> Delete(string product_name)
+    public async Task<bool> Delete(string productName)
     {
         await using var connection =
             new NpgsqlConnection(_configurations.GetValue<string>("DatabaseSettings:ConnectionString"));
@@ -62,7 +62,7 @@ public class DiscountRepository : IDiscountRepository
                 "DELETE FROM Coupon WHERE ProductName = @ProductName",
                 new
                 {
-                    ProductName = product_name
+                    ProductName = productName
                 });
         return affected != 0;
     }

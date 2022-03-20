@@ -11,6 +11,12 @@
         <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.0-preview.1.22109.13"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.43.0"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Protobuf Include="../Discount.Grpc/Protos/discount.proto" GrpcServices="Client">
+            <link>Protos/discount.proto</link>
+        </Protobuf>
     </ItemGroup>
 
 </Project>
